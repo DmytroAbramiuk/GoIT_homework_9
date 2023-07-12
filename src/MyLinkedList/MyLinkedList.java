@@ -17,21 +17,21 @@ public class MyLinkedList<T> {
         }
     }
 
-    public void clear(){
-        if(firstNode==null){
+    public void clear() {
+        if (firstNode == null) {
             firstNode = null;
             return;
-        } else if(lastNode==null){
+        } else if (lastNode == null) {
             return;
         }
 
-        while(firstNode!=null){
+        while (firstNode != null) {
             MyNode<T> currentNode = lastNode.getPreviousNode();
             lastNode = null;
             currentNode.setNextNode(null);
             lastNode = currentNode;
 
-            if(currentNode.getPreviousNode()==null){
+            if (currentNode.getPreviousNode() == null) {
                 firstNode = null;
                 lastNode = null;
                 return;
@@ -39,8 +39,8 @@ public class MyLinkedList<T> {
         }
     }
 
-    private MyNode<T> getNode(int index){
-        if(firstNode==null)
+    private MyNode<T> getNode(int index) {
+        if (firstNode == null)
             throw new RuntimeException("there aren't any values at list");
 
         MyNode<T> currentNode = firstNode;
@@ -51,7 +51,7 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
-        if(index>=size()){
+        if (index >= size()) {
             throw new RuntimeException("index is bigger than list size");
         }
         return getNode(index).getValue();
@@ -64,7 +64,7 @@ public class MyLinkedList<T> {
 
         MyNode<T> currentNode = firstNode;
         int length = 0;
-        while(currentNode!=null){
+        while (currentNode != null) {
             length++;
             currentNode = currentNode.getNextNode();
         }
@@ -72,14 +72,14 @@ public class MyLinkedList<T> {
         return length;
     }
 
-    public void remove(int index){
-        if(index<0 || index>=size())
+    public void remove(int index) {
+        if (index < 0 || index >= size())
             throw new RuntimeException("Specified index does not exist");
 
-        if(index==0){
+        if (index == 0) {
             firstNode = firstNode.getNextNode();
             firstNode.setPreviousNode(null);
-        } else if (index == size()-1) {
+        } else if (index == size() - 1) {
             lastNode = lastNode.getPreviousNode();
             lastNode.setNextNode(null);
         } else {
@@ -92,8 +92,8 @@ public class MyLinkedList<T> {
     }
 
     @Override
-    public String toString(){
-        if(this.size()==0)
+    public String toString() {
+        if (this.size() == 0)
             return "[]";
 
         String strList = "[";
@@ -108,37 +108,5 @@ public class MyLinkedList<T> {
         return strList;
     }
 
-    public static void main(String[] args) {
 
-        MyLinkedList<Integer> myList = new MyLinkedList<Integer>();
-
-        System.out.println("Add elements");
-        for (int i = 0; i < 10; i++) {
-            myList.add(i);
-            System.out.println(myList);
-        }
-
-        System.out.println("=========================");
-        System.out.println("Linked list size");
-        System.out.println("myList.size() = " + myList.size());
-
-        System.out.println("=========================");
-        System.out.println("get element by index");
-        System.out.println("myList.get(3) = " + myList.get(3));
-
-        System.out.println("=========================");
-        System.out.println("remove element by index");
-        System.out.println("Original list:\n" + myList);
-        myList.remove(0);
-        System.out.println("removed element with index 0:\n" + myList);
-        myList.remove(myList.size()-1);
-        System.out.println("removed element with index myList.size()-1:\n" + myList);
-        myList.remove(myList.size()/2);
-        System.out.println("removed element with index myList.size()/2:\n" + myList);
-
-        System.out.println("=========================");
-        System.out.println("clear all list");
-        myList.clear();
-        System.out.println(myList);
-    }
 }

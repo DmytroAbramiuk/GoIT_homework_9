@@ -40,14 +40,14 @@ public class MyQueue<T> {
     }
 
     public T peek() {
-        if(firstNode==null)
+        if (firstNode == null)
             throw new RuntimeException("No elements in queue");
 
         return firstNode.getValue();
     }
 
     public T poll() {
-        if(firstNode==null)
+        if (firstNode == null)
             throw new RuntimeException("No elements in queue");
 
         T valueOfFirstElement = firstNode.getValue();
@@ -70,30 +70,5 @@ public class MyQueue<T> {
         queueStr += currentNode.getValue() + "]";
 
         return queueStr;
-    }
-
-    public static void main(String[] args) {
-        MyQueue<Integer> myQueue = new MyQueue<Integer>();
-
-        System.out.println("Add elements");
-        for (int i = 0; i < 5; i++) {
-            myQueue.add(i);
-            System.out.println(myQueue);
-        }
-
-        System.out.println("=========================");
-        System.out.println("Queue's size");
-        System.out.println("myQueue.size() = " + myQueue.size());
-
-        System.out.println("=========================");
-        System.out.println("Return first element from queue");
-        System.out.println(myQueue);
-        System.out.println("myQueue.peek() = " + myQueue.peek());
-
-        System.out.println("=========================");
-        System.out.println("Return first element from queue and delete it");
-        System.out.println(myQueue);
-        System.out.println("myQueue.peek() = " + myQueue.poll());
-        System.out.println(myQueue);
     }
 }
