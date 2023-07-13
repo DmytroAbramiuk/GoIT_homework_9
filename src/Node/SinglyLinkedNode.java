@@ -1,19 +1,19 @@
-package MyQueue;
+package Node;
 
-public class MyNode<T> {
-    private MyNode<T> nextNode;
+public class SinglyLinkedNode<T> {
+    private SinglyLinkedNode<T> nextNode;
     private T value;
 
-    public MyNode(MyNode<T> nextNode, T value) {
+    public SinglyLinkedNode(SinglyLinkedNode<T> nextNode, T value) {
         this.nextNode = nextNode;
         this.value = value;
     }
 
-    public MyNode<T> getNextNode() {
+    public SinglyLinkedNode<T> getNextNode() {
         return nextNode;
     }
 
-    public void setNextNode(MyNode<T> nextNode) {
+    public void setNextNode(SinglyLinkedNode<T> nextNode) {
         this.nextNode = nextNode;
     }
 

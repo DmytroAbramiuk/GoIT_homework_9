@@ -1,9 +1,8 @@
-package MyQueue;
-
+package Stack;
 
 import Node.SinglyLinkedNode;
 
-public class MyQueue<T> {
+public class MyStack<T> {
     private SinglyLinkedNode<T> firstNode;
 
     private SinglyLinkedNode<T> getLastNode() {
@@ -25,6 +24,22 @@ public class MyQueue<T> {
         }
     }
 
+    public void remove(int index) {
+        if (index >= size() || index < 0)
+            throw new RuntimeException("Specified index does not exist");
+
+        int currentIndex = 0;
+        SinglyLinkedNode<T> currentNode = firstNode;
+
+        while (currentIndex != index - 1) {
+            currentNode = currentNode.getNextNode();
+            currentIndex++;
+        }
+
+        SinglyLinkedNode<T> nextAfterNodeToRemove = currentNode.getNextNode().getNextNode();
+        currentNode.setNextNode(nextAfterNodeToRemove);
+    }
+
     public void clear() {
         firstNode = null;
     }
@@ -43,19 +58,31 @@ public class MyQueue<T> {
     }
 
     public T peek() {
-        if (firstNode == null)
-            throw new RuntimeException("No elements in queue");
+        if (firstNode == null) {
+            throw new RuntimeException("There isn't any element in stack");
+        }
 
-        return firstNode.getValue();
+        SinglyLinkedNode<T> currentNode = firstNode;
+        while (currentNode.getNextNode() != null) {
+            currentNode = currentNode.getNextNode();
+        }
+        return currentNode.getValue();
     }
 
-    public T poll() {
-        if (firstNode == null)
-            throw new RuntimeException("No elements in queue");
+    public T pop() {
+        if (firstNode == null) {
+            throw new RuntimeException("There isn't any element in stack");
+        }
 
-        T valueOfFirstElement = firstNode.getValue();
-        firstNode = firstNode.getNextNode();
-        return valueOfFirstElement;
+        T firstStackElement = getLastNode().getValue();
+
+        SinglyLinkedNode<T> currentNode = firstNode;
+        while (currentNode.getNextNode().getValue() != firstStackElement) {
+            currentNode = currentNode.getNextNode();
+        }
+        currentNode.setNextNode(null);
+
+        return firstStackElement;
     }
 
     @Override

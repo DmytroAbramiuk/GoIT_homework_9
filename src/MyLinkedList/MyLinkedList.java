@@ -1,17 +1,19 @@
 package MyLinkedList;
 
+import Node.DoubleLinkedNode;
+
 public class MyLinkedList<T> {
-    private MyNode<T> firstNode;
-    private MyNode<T> lastNode;
+    private DoubleLinkedNode<T> firstNode;
+    private DoubleLinkedNode<T> lastNode;
 
     public void add(T value) {
         if (firstNode == null) {
-            firstNode = new MyNode<>(null, null, value);
+            firstNode = new DoubleLinkedNode<>(null, null, value);
         } else if (lastNode == null) {
-            lastNode = new MyNode<T>(null, firstNode, value);
+            lastNode = new DoubleLinkedNode<T>(null, firstNode, value);
             firstNode.setNextNode(lastNode);
         } else {
-            MyNode<T> newNode = new MyNode<T>(null, lastNode, value);
+            DoubleLinkedNode<T> newNode = new DoubleLinkedNode<T>(null, lastNode, value);
             lastNode.setNextNode(newNode);
             lastNode = newNode;
         }
@@ -26,7 +28,7 @@ public class MyLinkedList<T> {
         }
 
         while (firstNode != null) {
-            MyNode<T> currentNode = lastNode.getPreviousNode();
+            DoubleLinkedNode<T> currentNode = lastNode.getPreviousNode();
             lastNode = null;
             currentNode.setNextNode(null);
             lastNode = currentNode;
@@ -39,11 +41,11 @@ public class MyLinkedList<T> {
         }
     }
 
-    private MyNode<T> getNode(int index) {
+    private DoubleLinkedNode<T> getNode(int index) {
         if (firstNode == null)
             throw new RuntimeException("there aren't any values at list");
 
-        MyNode<T> currentNode = firstNode;
+        DoubleLinkedNode<T> currentNode = firstNode;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.getNextNode();
         }
@@ -51,8 +53,8 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
-        if (index >= size()) {
-            throw new RuntimeException("index is bigger than list size");
+        if (index >= size() || index < 0) {
+            throw new RuntimeException("Specified index does not exist");
         }
         return getNode(index).getValue();
     }
@@ -62,7 +64,7 @@ public class MyLinkedList<T> {
             return 0;
         }
 
-        MyNode<T> currentNode = firstNode;
+        DoubleLinkedNode<T> currentNode = firstNode;
         int length = 0;
         while (currentNode != null) {
             length++;
@@ -83,9 +85,9 @@ public class MyLinkedList<T> {
             lastNode = lastNode.getPreviousNode();
             lastNode.setNextNode(null);
         } else {
-            MyNode<T> currentNode = getNode(index);
-            MyNode<T> prevNodeFromCurrent = currentNode.getPreviousNode();
-            MyNode<T> nextNodeFromCurrent = currentNode.getNextNode();
+            DoubleLinkedNode<T> currentNode = getNode(index);
+            DoubleLinkedNode<T> prevNodeFromCurrent = currentNode.getPreviousNode();
+            DoubleLinkedNode<T> nextNodeFromCurrent = currentNode.getNextNode();
             prevNodeFromCurrent.setNextNode(nextNodeFromCurrent);
             nextNodeFromCurrent.setPreviousNode(prevNodeFromCurrent);
         }
@@ -93,11 +95,11 @@ public class MyLinkedList<T> {
 
     @Override
     public String toString() {
-        if (this.size() == 0)
+        if (size() == 0)
             return "[]";
 
         String strList = "[";
-        MyNode<T> currentNode = firstNode;
+        DoubleLinkedNode<T> currentNode = firstNode;
 
         while (currentNode.getNextNode() != null) {
             strList += currentNode.getValue() + ", ";
@@ -107,6 +109,4 @@ public class MyLinkedList<T> {
 
         return strList;
     }
-
-
 }

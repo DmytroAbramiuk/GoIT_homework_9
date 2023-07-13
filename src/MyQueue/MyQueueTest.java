@@ -24,5 +24,11 @@ public class MyQueueTest {
         System.out.println(myQueue);
         System.out.println("myQueue.peek() = " + myQueue.poll());
         System.out.println(myQueue);
+
+        System.out.println("=========================");
+        System.out.println("Clear queue");
+        System.out.println(myQueue);
+        myQueue.clear();
+        System.out.println(myQueue);
     }
 }

@@ -24,14 +24,14 @@ public class MyArrayList<T> {
     }
 
     public T get(int index) {
-        if (index > size - 1) {
+        if (index > size - 1 || index < 0) {
             throw new RuntimeException("Specified index does not exist");
         }
         return (T) array[index];
     }
 
     public void remove(int index) {
-        if (index > size) {
+        if (index > size || index < 0) {
             throw new RuntimeException("Specified index does not exist");
         }
         array[index] = null;
