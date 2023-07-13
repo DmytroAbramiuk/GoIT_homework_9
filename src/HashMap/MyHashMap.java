@@ -1,7 +1,5 @@
 package HashMap;
 
-import java.util.Arrays;
-
 import static java.util.Objects.hash;
 
 public class MyHashMap<T, E> {
@@ -24,20 +22,20 @@ public class MyHashMap<T, E> {
         if (table[indexToPut] == null) {
             table[indexToPut] = entry;
         } else {
-            Entry<T, E> currentNode = table[indexToPut];
-            Entry<T, E> prevNode = null;
+            Entry<T, E> currentEntry = table[indexToPut];
+            Entry<T, E> prevEntry = null;
 
-            while (currentNode != null) {
-                if (currentNode.getKey().equals(key)) {
-                    currentNode.setValue(value);
+            while (currentEntry != null) {
+                if (currentEntry.getKey().equals(key)) {
+                    currentEntry.setValue(value);
                     break;
                 }
-                prevNode = currentNode;
-                currentNode = currentNode.getNextNode();
+                prevEntry = currentEntry;
+                currentEntry = currentEntry.getNextEntry();
             }
 
-            if (prevNode != null) {
-                prevNode.setNextNode(entry);
+            if (prevEntry != null) {
+                prevEntry.setNextEntry(entry);
             }
         }
     }
@@ -45,39 +43,39 @@ public class MyHashMap<T, E> {
     public E get(T key) {
         int index = index(key);
         E value = null;
-        Entry<T, E> currentNode = table[index];
+        Entry<T, E> currentEntry = table[index];
 
-        while (currentNode != null) {
-            if (currentNode.getKey().equals(key)) {
-                value = currentNode.getValue();
+        while (currentEntry != null) {
+            if (currentEntry.getKey().equals(key)) {
+                value = currentEntry.getValue();
                 break;
             }
-            currentNode = currentNode.getNextNode();
+            currentEntry = currentEntry.getNextEntry();
         }
         return value;
     }
 
     public void remove(T key) {
         int index = index(key);
-        Entry<T, E> currentNode = table[index];
-        Entry<T, E> prevNode = null;
+        Entry<T, E> currentEntry = table[index];
+        Entry<T, E> prevEntry = null;
 
-        if (currentNode == null) {
+        if (currentEntry == null) {
             return;
         }
 
-        if (currentNode.getKey() == key) {
-            table[index] = currentNode.getNextNode();
+        if (currentEntry.getKey() == key) {
+            table[index] = currentEntry.getNextEntry();
             return;
         }
 
-        while (currentNode != null) {
-            if (currentNode.getKey().equals(key)) {
-                prevNode.setNextNode(currentNode.getNextNode());
+        while (currentEntry != null) {
+            if (currentEntry.getKey().equals(key)) {
+                prevEntry.setNextEntry(currentEntry.getNextEntry());
                 break;
             }
-            prevNode = currentNode;
-            currentNode = currentNode.getNextNode();
+            prevEntry = currentEntry;
+            currentEntry = currentEntry.getNextEntry();
         }
     }
 
@@ -88,13 +86,13 @@ public class MyHashMap<T, E> {
 
     public int size() {
         int length = 0;
-        Entry<T, E> currentNode;
+        Entry<T, E> currentEntry;
         for (int i = 0; i < table.length; i++) {
-            currentNode = table[i];
+            currentEntry = table[i];
             if (table[i] != null) {
-                while (currentNode != null) {
+                while (currentEntry != null) {
                     length++;
-                    currentNode = currentNode.getNextNode();
+                    currentEntry = currentEntry.getNextEntry();
                 }
             }
         }
@@ -104,21 +102,21 @@ public class MyHashMap<T, E> {
     @Override
     public String toString() {
         String hashMapStr = "empty";
-        Entry<T, E> currentNode;
+        Entry<T, E> currentEntry;
         for (int i = 0; i < table.length; i++) {
             if (table[i] == null) {
                 continue;
             } else {
                 if (hashMapStr.equals("empty"))
                     hashMapStr = "";
-                currentNode = table[i];
-                while (currentNode != null) {
-                    if (currentNode.getNextNode() == null) {
-                        hashMapStr += "{key: " + currentNode.getKey() + ", value: " + currentNode.getValue() + "}\n";
+                currentEntry = table[i];
+                while (currentEntry != null) {
+                    if (currentEntry.getNextEntry() == null) {
+                        hashMapStr += "{key: " + currentEntry.getKey() + ", value: " + currentEntry.getValue() + "}\n";
                     } else {
-                        hashMapStr += "{key: " + currentNode.getKey() + ", value: " + currentNode.getValue() + "}, ";
+                        hashMapStr += "{key: " + currentEntry.getKey() + ", value: " + currentEntry.getValue() + "}, ";
                     }
-                    currentNode = currentNode.getNextNode();
+                    currentEntry = currentEntry.getNextEntry();
                 }
             }
         }

@@ -3,12 +3,12 @@ package HashMap;
 public class Entry<T, E> {
     private T key;
     private E value;
-    private Entry<T, E> nextNode;
+    private Entry<T, E> nextEntry;
 
-    public Entry(T key, E value, Entry<T, E> nextNode) {
+    public Entry(T key, E value, Entry<T, E> nextEntry) {
         this.key = key;
         this.value = value;
-        this.nextNode = nextNode;
+        this.nextEntry = nextEntry;
     }
 
     public T getKey() {
@@ -27,11 +27,11 @@ public class Entry<T, E> {
         this.value = value;
     }
 
-    public Entry<T, E> getNextNode() {
-        return nextNode;
+    public Entry<T, E> getNextEntry() {
+        return nextEntry;
     }
 
-    public void setNextNode(Entry<T, E> nextNode) {
-        this.nextNode = nextNode;
+    public void setNextEntry(Entry<T, E> nextEntry) {
+        this.nextEntry = nextEntry;
     }
 }
