@@ -5,6 +5,7 @@ import Node.DoubleLinkedNode;
 public class MyLinkedList<T> {
     private DoubleLinkedNode<T> firstNode;
     private DoubleLinkedNode<T> lastNode;
+    private int size = 0;
 
     public void add(T value) {
         if (firstNode == null) {
@@ -17,28 +18,19 @@ public class MyLinkedList<T> {
             lastNode.setNextNode(newNode);
             lastNode = newNode;
         }
+        size++;
+    }
+
+    private void indexCheck(int index) {
+        if (index >= size || index < 0) {
+            throw new RuntimeException("Specified index does not exist");
+        }
     }
 
     public void clear() {
-        if (firstNode == null) {
-            firstNode = null;
-            return;
-        } else if (lastNode == null) {
-            return;
-        }
-
-        while (firstNode != null) {
-            DoubleLinkedNode<T> currentNode = lastNode.getPreviousNode();
-            lastNode = null;
-            currentNode.setNextNode(null);
-            lastNode = currentNode;
-
-            if (currentNode.getPreviousNode() == null) {
-                firstNode = null;
-                lastNode = null;
-                return;
-            }
-        }
+        firstNode = null;
+        lastNode = null;
+        size = 0;
     }
 
     private DoubleLinkedNode<T> getNode(int index) {
@@ -53,43 +45,32 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
-        if (index >= size() || index < 0) {
-            throw new RuntimeException("Specified index does not exist");
-        }
+        indexCheck(index);
         return getNode(index).getValue();
     }
 
     public int size() {
-        if (firstNode == null) {
-            return 0;
-        }
-
-        DoubleLinkedNode<T> currentNode = firstNode;
-        int length = 0;
-        while (currentNode != null) {
-            length++;
-            currentNode = currentNode.getNextNode();
-        }
-
-        return length;
+        return size;
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size())
-            throw new RuntimeException("Specified index does not exist");
+        indexCheck(index);
 
         if (index == 0) {
             firstNode = firstNode.getNextNode();
             firstNode.setPreviousNode(null);
+            size--;
         } else if (index == size() - 1) {
             lastNode = lastNode.getPreviousNode();
             lastNode.setNextNode(null);
+            size--;
         } else {
             DoubleLinkedNode<T> currentNode = getNode(index);
             DoubleLinkedNode<T> prevNodeFromCurrent = currentNode.getPreviousNode();
             DoubleLinkedNode<T> nextNodeFromCurrent = currentNode.getNextNode();
             prevNodeFromCurrent.setNextNode(nextNodeFromCurrent);
             nextNodeFromCurrent.setPreviousNode(prevNodeFromCurrent);
+            size--;
         }
     }
 

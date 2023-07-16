@@ -5,10 +5,15 @@ import Node.SinglyLinkedNode;
 
 public class MyQueue<T> {
     private SinglyLinkedNode<T> firstNode;
+    private int size = 0;
 
-    private SinglyLinkedNode<T> getLastNode() {
+    private void isEmpty() {
         if (firstNode == null)
             throw new RuntimeException("There is no any node");
+    }
+
+    private SinglyLinkedNode<T> getLastNode() {
+        isEmpty();
 
         SinglyLinkedNode<T> currentNode = firstNode;
         while (currentNode.getNextNode() != null) {
@@ -23,38 +28,28 @@ public class MyQueue<T> {
         } else {
             getLastNode().setNextNode(new SinglyLinkedNode<>(null, value));
         }
+        size++;
     }
 
     public void clear() {
         firstNode = null;
+        size = 0;
     }
 
     public int size() {
-        if (firstNode == null)
-            return 0;
-
-        SinglyLinkedNode<T> currentNode = firstNode;
-        int length = 0;
-        while (currentNode != null) {
-            length++;
-            currentNode = currentNode.getNextNode();
-        }
-        return length;
+        return size;
     }
 
     public T peek() {
-        if (firstNode == null)
-            throw new RuntimeException("No elements in queue");
-
+        isEmpty();
         return firstNode.getValue();
     }
 
     public T poll() {
-        if (firstNode == null)
-            throw new RuntimeException("No elements in queue");
-
+        isEmpty();
         T valueOfFirstElement = firstNode.getValue();
         firstNode = firstNode.getNextNode();
+        size--;
         return valueOfFirstElement;
     }
 

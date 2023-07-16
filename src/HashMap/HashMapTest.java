@@ -17,6 +17,16 @@ public class HashMapTest {
         hashMap.put("eighth", 8);
         hashMap.put("ninth", 9);
         hashMap.put("ten", 10);
+        hashMap.put("eleven", 11);
+        hashMap.put("twelve", 12);
+        hashMap.put("thirteen", 13);
+        hashMap.put("fourteen", 14);
+        hashMap.put("fifteen", 15);
+        hashMap.put("sixteen", 16);
+        hashMap.put("seventeen", 17);
+        hashMap.put("eighteen", 18);
+        hashMap.put("nineteen", 19);
+        hashMap.put("twenty", 20);
         System.out.println(hashMap);
 
         System.out.println("================size of hashMap================");
@@ -26,14 +36,14 @@ public class HashMapTest {
         System.out.println("hashMap.get(\"ninth\") = " + hashMap.get("ninth"));
 
         System.out.println("================remove element by key================");
-        System.out.println("remove key eighth");
-        hashMap.remove("eighth");
-        System.out.println(hashMap);
-        System.out.println("remove key fifth");
-        hashMap.remove("fifth");
-        System.out.println(hashMap);
-        System.out.println("remove key sixth");
-        hashMap.remove("sixth");
+        System.out.println("remove key first");
+        hashMap.remove("first");
+        System.out.println(hashMap + "\n");
+        System.out.println("remove key thirteen");
+        hashMap.remove("thirteen");
+        System.out.println(hashMap + "\n");
+        System.out.println("remove key ninth");
+        hashMap.remove("ninth");
         System.out.println(hashMap);
 
         System.out.println("================clear hashMap================");

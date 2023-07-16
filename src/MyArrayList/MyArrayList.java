@@ -19,21 +19,23 @@ public class MyArrayList<T> {
         size++;
     }
 
+    private void indexCheck(int index) {
+        if (index >= size || index < 0) {
+            throw new RuntimeException("Specified index does not exist");
+        }
+    }
+
     public int size() {
         return size;
     }
 
     public T get(int index) {
-        if (index > size - 1 || index < 0) {
-            throw new RuntimeException("Specified index does not exist");
-        }
+        indexCheck(index);
         return (T) array[index];
     }
 
     public void remove(int index) {
-        if (index > size || index < 0) {
-            throw new RuntimeException("Specified index does not exist");
-        }
+        indexCheck(index);
         array[index] = null;
         elementsDiplacement();
     }
@@ -77,18 +79,9 @@ public class MyArrayList<T> {
         }
     }
 
-    private void getCopy(Object[] data, Object[] temp) {
-        if (data.length > temp.length) {
-            throw new RuntimeException("cannot be copied");
-        }
-        for (int i = 0; i < data.length; i++) {
-            temp[i] = data[i];
-        }
-    }
-
     private void resizeArray() {
         Object[] temp = new Object[array.length + 5];
-        getCopy(array, temp);
+        System.arraycopy(array, 0, temp, 0, array.length);
         array = temp;
     }
 }

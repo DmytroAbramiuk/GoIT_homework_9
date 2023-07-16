@@ -4,10 +4,10 @@ import Node.SinglyLinkedNode;
 
 public class MyStack<T> {
     private SinglyLinkedNode<T> firstNode;
+    private int size = 0;
 
     private SinglyLinkedNode<T> getLastNode() {
-        if (firstNode == null)
-            throw new RuntimeException("There is no any node");
+        isEmpty();
 
         SinglyLinkedNode<T> currentNode = firstNode;
         while (currentNode.getNextNode() != null) {
@@ -16,12 +16,19 @@ public class MyStack<T> {
         return currentNode;
     }
 
+    public void isEmpty() {
+        if (firstNode == null) {
+            throw new RuntimeException("There isn't any element in stack");
+        }
+    }
+
     public void add(T value) {
         if (firstNode == null) {
             firstNode = new SinglyLinkedNode<>(null, value);
         } else {
             getLastNode().setNextNode(new SinglyLinkedNode<>(null, value));
         }
+        size++;
     }
 
     public void remove(int index) {
@@ -38,29 +45,20 @@ public class MyStack<T> {
 
         SinglyLinkedNode<T> nextAfterNodeToRemove = currentNode.getNextNode().getNextNode();
         currentNode.setNextNode(nextAfterNodeToRemove);
+        size--;
     }
 
     public void clear() {
         firstNode = null;
+        size = 0;
     }
 
     public int size() {
-        if (firstNode == null)
-            return 0;
-
-        SinglyLinkedNode<T> currentNode = firstNode;
-        int length = 0;
-        while (currentNode != null) {
-            length++;
-            currentNode = currentNode.getNextNode();
-        }
-        return length;
+        return size;
     }
 
     public T peek() {
-        if (firstNode == null) {
-            throw new RuntimeException("There isn't any element in stack");
-        }
+        isEmpty();
 
         SinglyLinkedNode<T> currentNode = firstNode;
         while (currentNode.getNextNode() != null) {
@@ -70,9 +68,7 @@ public class MyStack<T> {
     }
 
     public T pop() {
-        if (firstNode == null) {
-            throw new RuntimeException("There isn't any element in stack");
-        }
+        isEmpty();
 
         T firstStackElement = getLastNode().getValue();
 
@@ -81,6 +77,7 @@ public class MyStack<T> {
             currentNode = currentNode.getNextNode();
         }
         currentNode.setNextNode(null);
+        size--;
 
         return firstStackElement;
     }
